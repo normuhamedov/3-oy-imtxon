@@ -3,9 +3,16 @@ elMoviesList.innerHTML = null
 var moviesArray = movies.slice(0, 50)
 
 
+var Lengs = document.querySelector(".lengs")
+var allres = moviesArray.length;
+var minres = `Search result: ${allres}`;
+Lengs.innerHTML = minres
+
+
+
 function render(params) {
     for (const item of moviesArray) {
-    
+        
         var wachTrailerA = document.createElement("a")
         wachTrailerA.href = `https://www.youtube.com/watch?v=${item.ytid}`
         wachTrailerA.setAttribute("class", "btn btn-outline-primary")
@@ -31,13 +38,35 @@ function render(params) {
         buttonWrapper.appendChild(bookmarkBtn);
         
         
+        
+        
         var h5Heading = document.createElement("h5")
         h5Heading.textContent = item.Title
         h5Heading.classList.add("card-title")
         
+        
+        
+        var year_m = document.createElement("span")
+        year_m.textContent = item.movie_year
+        year_m.classList.add("mb-5")
+        
+        var Imdb_rating = document.createElement("span")
+        Imdb_rating.textContent = item.imdb_rating
+        Imdb_rating.classList.add("d-flex", "mb-10")
+        
+        var Categories = document.createElement("span")
+        Categories.textContent = item.Categories
+        Categories.classList.add("d-flex", "mb-10")
+        
         var cardBodyWrapper = document.createElement("div")
         cardBodyWrapper.setAttribute("class", "card-body")
+        
+        
         cardBodyWrapper.appendChild(h5Heading)
+        cardBodyWrapper.appendChild(year_m)
+        
+        cardBodyWrapper.appendChild(Imdb_rating)
+        cardBodyWrapper.appendChild(Categories)
         cardBodyWrapper.appendChild(buttonWrapper)
         
         var cardImg = document.createElement("IMG")
@@ -56,7 +85,7 @@ function render(params) {
         newLi.appendChild(card)
         
         elMoviesList.appendChild(newLi)
-        }
+    }
 }
 
 render(moviesArray)
