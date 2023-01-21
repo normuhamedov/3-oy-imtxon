@@ -90,3 +90,57 @@ function render(params) {
 
 render(moviesArray)
 
+
+let sliced = movies.slice(0, 5)
+
+let newMoviesArray = sliced.map(function(item) {
+    return {
+        title: item.Title.toString(), 
+        movieYear: item.movie_year,
+        categories: item.Categories.split("|"),
+        summary:item.summary,
+        imgUrl: `https://i3.ytimg.com/vi/${item.ytid}/hqdefault.jpg`,
+        vieoUrl: `https://www.youtube.com/watch?v=${item.ytid}`,
+        rating: item.imdb_rating
+    }
+})
+
+let allCategories = []
+for (const item of newMoviesArray) {
+    let categoryArray = item.categories
+    for (const oneCategory of categoryArray) {
+        if (!allCategories.includes(oneCategory)) {
+            allCategories.push(oneCategory)
+        }
+    }
+}
+
+console.log(allCategories.sort());
+
+let numbers = [12,154,85,6978,545]
+
+let elForm = document.querySelector("form")
+let elSelect = document.querySelector("select")
+elForm.addEventListener("submit", function(evt) {
+    evt.preventDefault()
+    console.log(elSelect.value);
+})
+
+function renderOptions(array, place) {
+    place.innerHTML = null
+    let newOption = document.createElement("option")
+    newOption.value = "All"
+    newOption.textContent = "Categories"
+    place.appendChild(newOption)
+    
+    for (const item of array) {
+        let newOption = document.createElement("option")
+        newOption.value = item
+        newOption.textContent = item
+        
+        place.appendChild(newOption)
+    }
+    
+}
+
+renderOptions(allCategories, elSelect)
